@@ -25,15 +25,17 @@ read -p 'For saving config file enter a name [Leave it blank for print in output
 # Save config into file if have name for peer or print in output if dont have name
 if [ "$NAME" == '' ]
 then
-	printf "\n\n"
-	printf "\e[7m${CONFIG}\e[0m"
+	printf "\n\n\e[7m${CONFIG}\e[0m\n"
 else
-	printf "${CONFIG}" >> "${NAME}.conf"
+	NAME+=".conf"
+	printf "${CONFIG}" >> "${NAME}"
+	printf "\nYour config file saved to: $(pwd)/${NAME}"
 fi
 
 
-printf "\n\nAdding peer to ${WGIF}...\n"
+# Add peer to wireguard interface
 sudo wg set ${WGIF} peer ${PUBCLIEKEY} allowed-ips ${ADDRESS}
+printf "\nPeer with ${PUBCLIEKEY} public key added to ${WGIF}.\n"
 
 # Save this config permanently
 read -p 'Do you want save wireguard interface now? [y,n Default=n]: ' SAVE
