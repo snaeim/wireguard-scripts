@@ -6,8 +6,8 @@
 # SERVER VAR
 SERVER_INTERFACE="wg0"
 SERVER_ENDPOINT="example.com"
-SERVER_PORT=$(wg show "${SERVER_INTERFACE}" | awk '/listening port:/' | sed -n 's/^.*: //p')
-SERVER_PUBLICKEY=$(wg show "${SERVER_INTERFACE}" | awk '/public key:/' | sed -n 's/^.*: //p')
+SERVER_PORT=$(wg show "${SERVER_INTERFACE}" | sed -n 's/^.*listening port: //p')
+SERVER_PUBLICKEY=$(wg show "${SERVER_INTERFACE}" | sed -n 's/^.*public key: //p')
 
 # CLIENT VAR
 CLIENT_DNS="8.8.8.8, 8.8.4.4"
